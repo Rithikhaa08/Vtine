@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Background</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body,html{
+    height:100%;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+}
+
+/* Loader */
+#loader{
+    position:fixed;
+    inset:0;
+    background:black;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    z-index:1000;
+    transition:opacity 1s ease;
+}
+
+.spinner{
+    border:8px solid #9b8d8d;
+    border-top:8px solid #fff;
+    border-radius:50%;
+    width:80px;
+    height:80px;
+    animation:spin 2s linear infinite;
+}
+
+@keyframes spin{
+    100%{ transform:rotate(360deg);}
+}
+
+#loader-text{
+    color:#9b9898;
+    margin-top:20px;
+    font-size:1.2rem;
+}
+
+/* Background */
+#main-content{
+    opacity:0;
+    height:100vh;
+    width:100%;
+    background-image:url("letter1image.png");
+    background-size:cover;
+    background-position:center top;
+    background-repeat:no-repeat;
+    transition:opacity 0.7s ease;
+    position:relative;
+}
+
+#main-content::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,0.4);
+}
+
+/* Text */
+#center-text{
+    position:absolute;
+    top:40px;
+    left:40px;
+    color:white;
+    font-size:1.6rem;
+    font-family:'Dancing Script', cursive;
+    line-height:1.6;
+    max-width:500px;
+    z-index:2;
+}
+
+.line{
+    opacity:0;
+    margin-bottom:8px;
+}
+
+.highlight{
+    color:#070001;
+    font-weight:bold;
+    font-size:2rem;
+}
+
+.next-btn{
+    display:inline-block;
+    margin-top:25px;
+    padding:10px 15px;
+    background-color:#060001a0;
+    color:white;
+    font-family:'Dancing Script', cursive;
+    font-size:1.3rem;
+    text-decoration:none;
+    border-radius:25px;
+    transition:0.3s;
+    box-shadow:0 4px 15px rgb(5, 0, 1);
+    opacity:0;
+}
+
+.next-btn:hover{
+    transform:scale(1.1);
+}
+</style>
+</head>
+
+<body>
+
+<div id="loader">
+    <div class="spinner"></div>
+    <div id="loader-text">Loading your love... 🩵</div>
+</div>
+
+<div id="main-content">
+    <div id="center-text">
+        <p class="line" data-text="No one has ever looked at me the way you do."></p>
+        <p class="line" data-text="You consume me!"></p>
+        <p class="line" data-text="You possess me!"></p>
+        <p class="line" data-text="I would choose you,"></p>
+        <p class="line" data-text="In a hundred lifetimes, I would still choose you."></p>
+
+        <a href="letter2.html" class="next-btn">next confession →</a>
+    </div>
+</div>
+
+<script>
+window.addEventListener("load", function(){
+
+    const loader = document.getElementById("loader");
+    const content = document.getElementById("main-content");
+    const lines = document.querySelectorAll(".line");
+    const button = document.querySelector(".next-btn");
+
+    loader.style.opacity = 0;
+
+    setTimeout(()=>{
+        loader.style.display="none";
+        content.style.opacity=1;
+
+        let delay = 0;
+
+        lines.forEach((line)=>{
+            setTimeout(()=>{
+                typeLine(line);
+            }, delay);
+            delay += 1500;
+        });
+
+        setTimeout(()=>{
+            button.style.opacity = "1";
+        }, delay);
+
+    },1000);
+});
+
+function typeLine(element){
+    let text = element.getAttribute("data-text");
+    let i = 0;
+    element.style.opacity = "1";
+
+    function typing(){
+        if(i < text.length){
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(typing, 45);
+        }
+    }
+    typing();
+}
+</script>
+
+</body>
+</html>
