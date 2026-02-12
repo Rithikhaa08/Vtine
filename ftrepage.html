@@ -18,6 +18,16 @@
             align-items:center;
             background-color:#ffc0cb;
             overflow:hidden;
+
+            /* Fade effect */
+            opacity:0;
+            animation: fadeIn 2s ease forwards;
+        }
+
+        /* Fade animation */
+        @keyframes fadeIn{
+            from{ opacity:0; }
+            to{ opacity:1; }
         }
 
         #hearts-bg{
@@ -58,7 +68,7 @@
             padding-top:30px;
             text-align:center;
             overflow:hidden;
-            opacity: 0.7;
+            opacity:0.9;
         }
 
         .box h3{
@@ -107,6 +117,7 @@
             transition:0.2s;
         }
 
+        .no-btn:hover,
         .yes-btn:hover{
             transform:scale(1.1);
         }
@@ -116,15 +127,16 @@
 
 <body>
 
-    <!-- 💕 Floating Hearts -->
     <div id="hearts-bg"></div>
 
     <div class="box">
-        <h3>Will you be my valentine!?</h3>
-        <h2>Prince</h2>
+        <h3>Wanna see my desires</h3>
+        <h2>with you ?</h2>
 
         <div class="buttons">
-            <a href="mainpage.html"><button class="yes-btn">YES 💙</button></a>
+            <a href="desires.html">
+                <button class="yes-btn">YES 💙</button>
+            </a>
             <button class="no-btn" id="noBtn">NO 🥺</button>
         </div>
     </div>
@@ -132,7 +144,8 @@
 <script>
     const heartsContainer = document.getElementById("hearts-bg");
 
-    for(let i=0; i<50; i++){
+    for(let i=0; i<50; i++)
+    {
         const heart = document.createElement("div");
         heart.classList.add("heart");
         heart.innerHTML = "🩷";
@@ -141,59 +154,8 @@
         heart.style.fontSize = (15 + Math.random() * 30) + "px";
         heart.style.animationDuration = (5 + Math.random() * 5) + "s";
         heart.style.animationDelay = Math.random() * 5 + "s";
-
         heartsContainer.appendChild(heart);
     }
- 
-    const noBtn = document.getElementById("noBtn");
-    const box = document.querySelector(".box");
-
-    const texts = [
-        "Kondruven Gothaa 😤",
-        "Naane daily konjuren 😭",
-        "Un moonji enna thavara yaar da paapa 😚",
-        "I'll be your nightmare 😈",
-        "Ready to miss me ? 🌚",
-        "Babeee noooo 💕",
-        "Amuuuuu 🩵"
-    ];
-
-    let textIndex = 0;
-
-    const directions = [
-        {x: 200, y: 0},
-        {x: -200, y: 0},
-        {x: 0, y: 150},
-        {x: 0, y: -150},
-        {x: 200, y: 150},
-        {x: 200, y: -150},
-        {x: -200, y: -150}
-    ];
-
-    let moveIndex = 0;
-
-    noBtn.addEventListener("mouseover", () => {
-
-        noBtn.innerText = texts[textIndex];
-        textIndex = (textIndex + 1) % texts.length;
-
-        const boxRect = box.getBoundingClientRect();
-
-        let currentLeft = noBtn.offsetLeft;
-        let currentTop = noBtn.offsetTop;
-
-        let dir = directions[moveIndex];
-        moveIndex = (moveIndex + 1) % directions.length;
-
-        let newX = currentLeft + dir.x;
-        let newY = currentTop + dir.y;
-
-        newX = Math.max(0, Math.min(newX, boxRect.width - noBtn.offsetWidth));
-        newY = Math.max(0, Math.min(newY, boxRect.height - noBtn.offsetHeight));
-
-        noBtn.style.left = newX + "px";
-        noBtn.style.top = newY + "px";
-    });
 </script>
 
 </body>
